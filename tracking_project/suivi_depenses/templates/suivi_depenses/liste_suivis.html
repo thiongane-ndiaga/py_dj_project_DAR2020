@@ -1,0 +1,27 @@
+{% extends 'suivi_depenses/base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Mes suivis</h1>
+    <hr>
+    <div class="row">
+        {% for s in suivis %}
+        <div class="col-4">
+            <div class="card-body bg-info text-center shadow">
+                <h3>{{s.nom}}</h3>
+                <h6 class="text-right font-weight-bold">{{s.budget}} FCFA</h6>
+                <h6 class="text-right">{{s.date_creation}}</h6>
+                <a href="{% url 'details_suivi' s.slug%}" class="card-link text-warning ">Détails</a>
+                <a href="{% url 'del_suivi' s.slug%}" class="card-link text-danger ">Supprimer</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center">
+            <h2 class="text-secondary">Pas encore de suivi...</h2>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-3">
+        <a href="{% url 'ajout_suivi' %}"><button class="btn btn-info btn-outline-dark">Créer un suivi</button></a>
+    </div>
+</div>
+{% endblock %}

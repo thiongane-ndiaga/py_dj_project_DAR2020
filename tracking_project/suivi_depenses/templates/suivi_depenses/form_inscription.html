@@ -1,0 +1,13 @@
+{% extends 'suivi_depenses/conn_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Inscription</h1>
+    <hr>
+    <form action="{% url 'inscription' %}" method="POST">
+        {% csrf_token %}
+        {{form | crispy }}
+        <input type="submit" class="btn btn-success btn-outline-dark" value="Inscription">
+    </form>
+</div>
+{% endblock %}

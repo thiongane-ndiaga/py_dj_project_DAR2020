@@ -1,0 +1,19 @@
+{% extends 'suivi_depenses/conn_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Connexion</h1>
+    <hr>
+    <form action="{% url 'connexion' %}" method="POST">
+        {% csrf_token %}
+        {{form | crispy }}
+        <div class="text-center">
+            <input type="submit" class="btn btn-success btn-outline-dark" value="Se connecter">
+        </div>
+    </form>
+    <div class="text-info text-center">
+        Vous n'avez pas de compte ?
+        <a href="{% url 'inscription' %}" class="text-success">S'inscrire !</a>
+    </div>
+</div>
+{% endblock %}

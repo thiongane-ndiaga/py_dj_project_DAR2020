@@ -1,0 +1,15 @@
+{% extends 'suivi_depenses/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Créer un suivi</h1>
+    <hr>
+    <form action="{% url 'ajout_suivi' %}" method="POST">
+        {% csrf_token %}
+        {{ form|crispy}}
+        <p class="text-info">Format date : aaaa-mm-jj</p>
+        <input type="submit" value="Créer" class="btn btn-success">
+    </form>
+</div>
+{% endblock %}

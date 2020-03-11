@@ -1,0 +1,9 @@
+.cate_item{
+    display: inline-block;
+    padding: 1px;
+    border: solid 1px darkgray;
+    border-radius: 3px;
+    margin-right: 2px;
+    height: 20px;
+    font-size: 13px;
+}

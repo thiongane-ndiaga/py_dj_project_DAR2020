@@ -1,0 +1,95 @@
+{% extends 'suivi_depenses/base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Suivi : {{suivi.nom}}</h1>
+    <div class="text-right">
+        <h6>Créé le : {{ suivi.date_creation }}</h6>
+        <a href="{% url 'del_suivi' suivi.slug%}" class="text-danger text-right">Supprimer le suivi</a>
+    </div>
+    <hr>
+    <section class="section">
+        <div class="row">
+            <div class="col-3">
+                <div class="card-body bg-info text-center">
+                    <h6>Budget initial</h6>
+                    <h2>{{ suivi.budget }} FCFA</h2>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card-body bg-info text-center">
+                    <h6>Date limite</h6>
+                    <h2>{{ suivi.date_limite }}</h2>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card-body bg-info text-center">
+                    <h6>Budget restant</h6>
+                    <h2>{{ suivi.b_restant }} FCFA</h2>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card-body bg-info text-center">
+                    <h6>Dépenses totales</h6>
+                    <h2>{{ suivi.d_totales }} FCFA</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <h1 class="text-center">Mes dépenses</h1>
+    <hr>
+    <section class="section m-3">
+        <table class="table table-hover shadow">
+            <tr class="bg-dark text-light">
+                <th>
+                    Titre
+                </th>
+                <th class="text-right">
+                    Montant
+                </th>
+                <th colspan="2">
+                    Catégorie
+                </th>
+            </tr>
+            {%for d in depenses%}
+            <tr>
+                <td>{{d.titre}}</td>
+                <th class="text-right">{{d.montant}} FCFA</th>
+                <td colspan="2">{{d.categorie.nom}} <a href="{% url 'del_depense' d.pk %}" class="close text-danger">x</a></td>
+            </tr>
+            {%endfor%}
+        </table>
+    </section>
+    <div class="container text-right">
+        <button class="btn btn-info btn-outline-dark" id="btnAdd"><a href="#titreInput" class="text-white">Ajouter dépense</a></button>
+    </div>
+    <div id="addForm">
+        <div class="container col-3">
+            <h4>Ajouter une dépense</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input type="text" name="titre" class="form-control" id="titreInput" required>
+                </div>
+                <div class="form-group">
+                    <label for="montant">Montant (FCFA)</label>
+                    <input type="number" name="montant" min="1" max="99999999" step="0.01" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="new_cate">Catégorie</label>
+                    <input type="text" name="new_cate" id="new_cate" class="form-control" required>
+                </div> 
+                <button type="submit" class="btn btn-success btn-outline-dark">Ajouter</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $("#addForm").hide()
+    $("#btnAdd").click(function(){
+        $("#addForm").show()
+    })
+</script>
+{% endblock %}
